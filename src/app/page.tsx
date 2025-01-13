@@ -5,11 +5,17 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import Marquee from "@/components/ui/marquee";
+import MorphingText from "@/components/ui/morphing-text";
 import { DATA } from "@/data/resume";
+import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
 const BLUR_FADE_DELAY = 0.04;
+
+const firstRow = DATA.marquee.slice(0, DATA.marquee.length / 2);
+const secondRow = DATA.marquee.slice(DATA.marquee.length / 2);
 
 export default function Page() {
   return (
@@ -25,7 +31,7 @@ export default function Page() {
                 text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
               />
               <BlurFadeText
-                className="max-w-[600px] md:text-lg mt-3"
+                className="max-w-[600px] md:text-base mt-3"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
@@ -47,6 +53,40 @@ export default function Page() {
           <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
             {DATA.summary}
           </Markdown>
+        </BlurFade>
+      </section>
+      <section id="marquee-container">
+        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+          <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden bg-background">
+            <Marquee reverse className="[--duration:20s]">
+              {firstRow.map((review) => (
+                <Image
+                  alt={review.alt}
+                  className="w-20 h-20 rounded-xl"
+                  src={review.img}
+                  key={review.img}
+                  width={100}
+                  height={100}
+                />
+              ))}
+            </Marquee>
+            <Marquee className="[--duration:20s]">
+              {secondRow.map((review) => (
+                <Image
+                  alt={review.alt}
+                  className="w-20 h-20 rounded-xl"
+                  src={review.img}
+                  key={review.img}
+                  width={100}
+                  height={100}
+                />
+              ))}
+            </Marquee>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
+            <MorphingText className="mt-10 !text-[1.3em] md:!text-[2em] w-full" texts={DATA.morphins} />
+
+          </div>
         </BlurFade>
       </section>
       <section id="work">
