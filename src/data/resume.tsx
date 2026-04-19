@@ -432,7 +432,7 @@ Whether you need a full product team or expert hands to scale your platform, Bla
       description:
         "Yottab  is a Paas platform offering multiple cloud services or third  party repositories ",
       image:
-        "/logo.png",
+        "/logo.png ",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
       links: [],
     },
